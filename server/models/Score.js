@@ -3,7 +3,7 @@ const { ObjectId } = require("mongodb");
 
 class Score {
     constructor(data) {
-        this.id = data.id;
+        this.id = data._id;
         this.username = data.username;
         this.score = data.score;
     }
@@ -13,7 +13,6 @@ class Score {
             try {
                 const db = await init();
                 const scoresData = await db.collection("scores").find().toArray();
-                console.log(scoresData)
                 let scores = scoresData.map(score => new Score(score))
                 res(scores)
             } catch (error) {
@@ -22,11 +21,11 @@ class Score {
         })
     }
 
-    static findbyId(id) {
+    static findById(id) {
         return new Promise(async (res,rej) => {
             try {
                 const db = await init();
-                const scoresData = await db.collection("scores").findOne({_id: ObjectId(id)})
+                const scoresData = await db.collection("scores").findOne({ _id: ObjectId(id)})
                 let scoreByID = new Score(scoresData)
                 res(scoreByID)
             } catch (error) {
@@ -35,17 +34,16 @@ class Score {
         })
     }
 
-    static updateScore(id, update, username) {
+    static updateScore(id, update) {
         return new Promise(async (res,rej) => {
             try {
                 const db = await init()
                 const scoresData = await db.collection("scores").findOneAndUpdate(
                     {_id: ObjectId(id) },
-                    {username: username},
                     {$inc: {score: update}}, 
                     {returnDocument: "after"}
                     );
-                    let scoreUpdate = new Score(scoreUpdate)
+                    let scoreUpdate = new Score(scoresData)
                     res(scoreUpdate)
             } catch (error) {
                 rej("error updateing score" + error);
@@ -71,7 +69,7 @@ class Score {
           try {
             const db = await init();
             await db.collection("scores").deleteOne({ _id: this.id });
-            res(`${this.username} deleted`);
+            res(`${this.username} has been deleted`);
           } catch (error) {
             rej("Error deleting user");
           }
