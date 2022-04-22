@@ -5,7 +5,7 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DB_NAME=quiz
+      - DB_NAME=sportsquizz
       - DB_CONNECTION=mongodb://sportsquizzjd:sqjd@db:27017
     depends_on:
       - db
@@ -17,7 +17,7 @@ services:
       - "./db/seeds.js:/docker-entrypoint-initdb.d/seeds.js:ro"
     environment:
       - MONGO_INITDB_ROOT_USERNAME=sportsquizzjd
-      - MONGO_INITDB_DATABASE=quiz
+      - MONGO_INITDB_DATABASE=sportsquizz
       - MONGO_INITDB_ROOT_PASSWORD=sqjd
 volumes:
   dbdata:
