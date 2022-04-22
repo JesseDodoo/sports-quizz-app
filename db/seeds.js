@@ -1,4 +1,4 @@
-const db = connect("mongodb://localhost:27017/quiz");
+const db = connect("mongodb://localhost:27017/sportsquizz");
 
 db.scores.drop();
 
