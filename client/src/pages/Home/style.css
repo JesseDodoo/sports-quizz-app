@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Londrina+Outline&display=swap');
 
 body {
-    background: linear-gradient(90deg,#e200ff 10%, #ffff00 70%, #4900ff 100%);
+    background-image: url(https://images.unsplash.com/photo-1574629810360-7efbbe195018?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1986&q=80);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .header{
@@ -18,12 +20,13 @@ body {
     border-radius: 20px;
     border-width: 10px;
     padding: 50px 0px ;
-    width: 20%;
+    width: 10%;
     margin-left: auto;
     margin-right: auto;
 }
 
 main {
+    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -34,7 +37,7 @@ main {
 .link {
     font-family: 'Londrina Outline', cursive;
     border-radius: 50px;
-    width: 40%;
+    width: 20%;
     padding: 0px 0px ;
     margin-bottom: 20px;
     text-decoration: none;

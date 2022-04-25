@@ -37,6 +37,10 @@
     text-align: center;
     width: 20%;
     background-color: orange;
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .BackBtn:hover{

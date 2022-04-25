@@ -223,11 +223,15 @@ function Quiz() {
 
     return (<>
     <h1 className="header">Quiz</h1>
-        <h2>{error ? error.message : loading ? null : playerToAnswer.playerName} score:{loading ? null : playerToAnswer.score}</h2>
-        <form onSubmit={onSubmitAnswer}>
-            <h2>question:{error ? error.message : loading ? 'loading' : renderQuestion()}</h2>
+        <h2 className="score">{error ? error.message : loading ? null : playerToAnswer.playerName} score:{loading ? null : playerToAnswer.score}</h2>
+        <form className="quizForm" onSubmit={onSubmitAnswer}>
+          <div className="questions">
+            <h2>{error ? error.message : loading ? 'loading...' : renderQuestion()}</h2>
+          </div>
+          <div className="answers">
             {loading ? null : renderAnswers()}
-            {error ? error.message : <button>ANSWER</button>}
+          </div>
+            {error ? error.message : <button className="answerBtn">ANSWER</button>}
             { error ? <p role = 'alert'> Oops there's been an error! {error}</p> : null}
         </form>
         <BackButton />

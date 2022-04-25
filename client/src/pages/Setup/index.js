@@ -10,7 +10,6 @@ function Setup() {
   const [playerNumber, setPlayerNumber] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(10);
   const [playerName, setPlayerName] = useState([]);
-  // const [category, setCategory] = useState("");
   const [difficulty, setDifficulty] = useState("");
   const [triviaType, setTriviaType] = useState("");
   const [mainPlayer, setMainPlayer] = useState("");
@@ -76,7 +75,7 @@ function Setup() {
             value={mainPlayer}
             key={i}
             onChange={getPlayerName}
-            placeholder="enter player name"
+            placeholder="enter players names"
           ></input>
         );
       } else {
@@ -151,7 +150,7 @@ function Setup() {
   return (
     <>
     <h1 className="header">Setup</h1>
-      <form onSubmit={handleSubmit}>
+      <form className="setup" onSubmit={handleSubmit}>
         <label>Local or online?</label>
 
         <select required name="onlineOrLocal">

@@ -8,7 +8,7 @@
     font-size: 4rem;
 }
 
-form {
+.setup {
      background-color: #ffffff;
     border: 1px solid black;
     border-radius: 20px;
@@ -20,6 +20,11 @@ form {
     align-items: center;
     z-index: -1;
 }
+
+/* h2.answer{
+    display: flex;
+    flex-direction: row;
+} */
 
 .inputContainer{
     display: flex;
