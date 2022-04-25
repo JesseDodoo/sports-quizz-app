@@ -1,0 +1,95 @@
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { emptyQuiz } from "../../actions";
+import './styles.css'
+
+function Results() {
+  const dispatch = useDispatch();
+
+  const players = useSelector((state) => state.players);
+  const quiz = useSelector((state) => state.quiz);
+  const mainPlayer = useSelector((state) => state.mainPlayer);
+  const [newScore, setNewScore] = useState("");
+  useEffect(() => {
+    const player = players.find(
+      (p) => p.playerName == mainPlayer[0].playerName
+    );
+    fetchScore(mainPlayer[0].id, player.score);
+  }, []);
+
+  async function fetchScore(id, scoreIncrementor) {
+    const response = await fetch(`https://fpquizapp.herokuapp.com/scores`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id: id,
+        score: scoreIncrementor,
+      }),
+    });
+    await fetchTotalScore(id)
+  }
+  
+    async function fetchTotalScore(id) {
+    const response = await fetch(`https://fpquizapp.herokuapp.com/scores/${id}`);
+    let resp = await response.json();
+    setNewScore(resp.score);
+    }
+
+  
+  
+  function renderScores() {
+    const displayArray = [];
+    const maxScore = quiz.length * 5;
+    players.sort((c, b) => (c.score > b.score ? -1 : 1));
+    const winner = players[0];
+    displayArray.push(
+      <h1 className="ResultItem">
+        WINNNNNER: {winner.playerName}, scored: {winner.score} out of{" "}
+        {maxScore / players.length}, correct answers: {winner.score / 5}/
+        {maxScore / 5 / players.length}
+      </h1>
+    );
+    for (let i = 1; i < players.length; i++) {
+      displayArray.push(
+        <h2 className="ResultItem">
+          {" "}
+          {i + 1} place: {players[i].playerName}, scored: {players[i].score} out
+          of {maxScore / players.length}, correct answers:{" "}
+          {players[i].score / 5}/{maxScore / 5 / players.length}
+        </h2>
+      );
+    }
+
+    return displayArray;
+  }
+
+  function emptyTheQuiz() {
+    dispatch(emptyQuiz());
+  }
+
+  return (
+    <section className="ResultsContainer">
+      <h1 className="header">Results page</h1>
+      <section className="ResultsSection">
+        <h1 className="ResultItem">
+          {mainPlayer.playerName} Overall Score is now: {newScore} points!
+        </h1>
+        {renderScores()}
+        <h1 className="PlayAgain">PLAY AGAIN?</h1>
+        <section className="ResultBtnSection">
+          <NavLink className="ResultBtn" onClick={emptyTheQuiz} to="/setup">
+            <h1 >YES</h1>
+          </NavLink>
+          <NavLink className="ResultBtn" onClick={emptyTheQuiz} to="/">
+            <h1 >NO</h1>
+          </NavLink>
+        </section>
+      </section>
+    </section>
+  );
+}
+
+export default Results;
+
+
